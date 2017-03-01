@@ -33,14 +33,20 @@ public class MainActivity extends AppCompatActivity {
             if(guess<1 || guess>100) {
                 output = guess + " is a fish outta water! 1-100 only please.";
                 lblOutput.setText(output);
+                txtGuess.requestFocus();
+                txtGuess.selectAll();
             }
             else if (guess > myNum){
                 output = guess + " was higher than my number.";
                 lblOutput.setText(output);
+                txtGuess.requestFocus();
+                txtGuess.selectAll();
             }
             else if (guess < myNum){
                 output = guess + " was lower than my number.";
                 lblOutput.setText(output);
+                txtGuess.requestFocus();
+                txtGuess.selectAll();
             } else{
                 output = "Yup, "+guess+" was it.  Play again if that's how you want to spend your time...";
                 lblOutput.setText(output);
