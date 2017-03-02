@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText txtGuess;
     private Button guessBtn;
     private TextView lblOutput;
-
+    private int tries=6;
     private int myNum;
     private String output = "";
 
@@ -29,27 +29,35 @@ public class MainActivity extends AppCompatActivity {
         String theirNum = txtGuess.getText().toString();
         try{
             int guess = Integer.parseInt(theirNum);
+            tries--;
 
             if(guess<1 || guess>100) {
-                output = guess + " is a fish outta water! 1-100 only please.";
+                output = guess + " is a fish outta water! 1-100 only please. "+tries+" tries left";
                 lblOutput.setText(output);
                 txtGuess.requestFocus();
                 txtGuess.selectAll();
             }
             else if (guess > myNum){
-                output = guess + " was higher than my number.";
+                output = guess + " was higher than my number. "+tries+" tries left";
                 lblOutput.setText(output);
                 txtGuess.requestFocus();
                 txtGuess.selectAll();
             }
             else if (guess < myNum){
-                output = guess + " was lower than my number.";
+                output = guess + " was lower than my number. "+tries+" tries left";
                 lblOutput.setText(output);
                 txtGuess.requestFocus();
                 txtGuess.selectAll();
             } else{
-                output = "Yup, "+guess+" was it.  Play again if that's how you want to spend your time...";
-                lblOutput.setText(output);
+                if (tries==5){
+                    output = "You...how did you even do that?";
+                    lblOutput.setText(output);
+                }
+                else {
+                    output = "Ya got it in " + tries + ". Play again if so inclined...";
+                    lblOutput.setText(output);
+                    tries=6;
+                }
                 newRand();
             }
         }
@@ -61,11 +69,18 @@ public class MainActivity extends AppCompatActivity {
             txtGuess.requestFocus();
             txtGuess.selectAll();
         }
+        if (tries==0){
+            output = "All outta tries buddy.  NEW GAME!";
+            lblOutput.setText(output);
+            tries=6;
+            newRand();
+        }
     }
 
     //new random
     private void newRand(){
         myNum = (int)(Math.random()*100+1);
+        tries = 6;
     }
 
     @Override
